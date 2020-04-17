@@ -28,7 +28,7 @@ def display(server, name, position, dimension):
 	# server.say('§e{}§r @ {} §r{}'.format(name, dimension_display[dimension], position_show))
 	server.execute('tellraw @a [{"text":"{player} ","color":"yellow",},{"text":"@ ","color":"white",},\
 		{"translate":"{dim_name}","color":{dim_color},},{"text":" {pos}","color":"aqua",}]'\
-		.format(player=name,dim_name=dimension_trans[dimension],dim_color=dimension_color[dimension],pos=position_show)
+		.format(player=name,dim_name=dimension_trans[dimension],dim_color=dimension_color[dimension],pos=position_show))
 	if HIGHLIGHT_TIME > 0:
 		server.execute('effect give {} minecraft:glowing {} 0 true'.format(name, HIGHLIGHT_TIME))
 		# server.tell(name, '你将会被高亮{}秒'.format(HIGHLIGHT_TIME))
