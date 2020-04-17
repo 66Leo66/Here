@@ -22,11 +22,18 @@ def process_dimension(text):
 def display(server, name, position, dimension):
 	global HIGHLIGHT_TIME
 	dimension_display = {0: '§2主世界', -1: '§4地狱', 1: '§5末地'}
+	dimension_color = {0:'dark_green',-1:'dark_red','end':'yellow'}
+	dimension_trans = {0:'createWorld.customize.preset.overworld',-1:'biome.minecraft.nether',1:'biome.minecraft.the_end'}
 	position_show = '[x:{}, y:{}, z:{}]'.format(*position)
-	server.say('§e{}§r @ {} §r{}'.format(name, dimension_display[dimension], position_show))
+	# server.say('§e{}§r @ {} §r{}'.format(name, dimension_display[dimension], position_show))
+	server.execute('tellraw @a [{"text":"{player} ","color":"yellow",},{"text":"@ ","color":"white",},\
+		{"translate":"{dim_name}","color":{dim_color},},{"text":" {pos}","color":"aqua",}]'\
+		.format(player=name,dim_name=dimension_trans[dimension],dim_color=dimension_color[dimension],pos=position_show)
 	if HIGHLIGHT_TIME > 0:
 		server.execute('effect give {} minecraft:glowing {} 0 true'.format(name, HIGHLIGHT_TIME))
-		server.tell(name, '你将会被高亮{}秒'.format(HIGHLIGHT_TIME))
+		# server.tell(name, '你将会被高亮{}秒'.format(HIGHLIGHT_TIME))
+		server.execute('tellraw {player} [{"text":"你将获得 "},{"translate":"effect.minecraft.glowing"},{"text":" 效果{second}s"}]'\
+			.format(player=name,second=HIGHLIGHT_TIME))
 
 
 def on_info(server, info):
